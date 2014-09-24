@@ -4,7 +4,7 @@ slinx
 Slinx is an attempt to make a decent 3D game. It uses C++ and the SDL library.
 
 Installation of SDL
-===================
+-------------------
 
 SDL is a cross-platform library, however, its installation and linkage for Windows is far from complicated so we are going straight to the Linux part.
 
@@ -27,3 +27,29 @@ make install
 ````
 
 Once this is done you are ready to check it out by yourself.
+
+Compiling the game
+------------------
+
+At this stage of the project, the compilation is rather simple.
+
+Once you've acquired the SDL library:
+
+```
+g++ main.cpp -o slinx -lSDL2
+```
+
+If you're presented with an error such as
+
+> error while loading shared libraries: libSDL2-2.0.so.0: cannot open shared object file: No such file or directory
+
+make sure the dynamic linkers finds the library. A quick workaround is to simply do:
+
+```sudo /sbin/ldconfig -v```
+
+this should fix the issue. For further info about what ldconfig does, ```man ldconfig```.
+
+Later on, when the project develops, it is highly likely that this method will be replaced by a ```Makefile``` or similar approach.
+
+
+
