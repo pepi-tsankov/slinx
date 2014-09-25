@@ -12,16 +12,16 @@ SDL_Surface* mainWindow::gBackground = NULL;
 
 bool mainWindow::init() 
 {
-    SDL_Init (SDL_INIT_EVERYTHING);	
-	bool success = true;
+    SDL_Init (SDL_INIT_EVERYTHING);
+    bool success = true;
 
-	// SDL_Init should return a non-zero value if there's an error, so handle it
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		printf("SDL failed to initialize! Error: %s\n", SDL_GetError());
-		success = false;
-	}
-	else {
-		// TODO: Center the window or/and make it fullscreen
+    // SDL_Init should return a non-zero value if there's an error, so handle it
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        printf("SDL failed to initialize! Error: %s\n", SDL_GetError());
+        success = false;
+    }
+    else {
+        // TODO: Center the window or/and make it fullscreen
         gWindow = SDL_CreateWindow("Slinx 0.0.1", 10, 10, 640, 480, true); 
         if (gWindow == NULL)
         {
@@ -33,19 +33,19 @@ bool mainWindow::init()
             //Get window surface
             gScreenSurface = SDL_GetWindowSurface(gWindow);
         }		
-	}
+    }
 }
 
 bool mainWindow::loadBackground() 
 {
-	bool success = true;
+    bool success = true;
 
-	gBackground = SDL_LoadBMP("media/bg.bmp");
-	if (gBackground == NULL) {
-		printf("Unable to load image! SDL Error: %s\n", SDL_GetError());
-		success = false;
-	}
-	return success;
+    gBackground = SDL_LoadBMP("media/bg.bmp");
+    if (gBackground == NULL) {
+        printf("Unable to load image! SDL Error: %s\n", SDL_GetError());
+        success = false;
+    }
+    return success;
 }
 
 void mainWindow::close() 
@@ -61,8 +61,8 @@ void mainWindow::close()
 
 mainWindow::mainWindow()
 {
-	// Now we're going to call all of the previously defined functions. Notice that we're also checking their return value.
-	if (!init()) {
+    // Now we're going to call all of the previously defined functions. Notice that we're also checking their return value.
+    if (!init()) {
 		printf("init(): Failed to initialize!\n");
     }
     else 

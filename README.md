@@ -36,7 +36,7 @@ At this stage of the project, the compilation is rather simple.
 Once you've acquired the SDL library:
 
 ```
-g++ main.cpp -o slinx -lSDL2
+g++ main.cpp mainWindow.cpp -o slinx -lSDL2
 ```
 
 If you're presented with an error such as
