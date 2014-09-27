@@ -1,6 +1,7 @@
 #include "inc/mainWindow.h"
-#include "SDL2/SDL_ttf.h"
+#include "SDL_ttf.h"
 #include <iostream>
+#include <stdio.h>
 
 SDL_Window* mainWindow::gWindow = NULL;
 SDL_Surface* mainWindow::gScreenSurface = NULL;
@@ -14,6 +15,7 @@ SDL_Surface* mainWindow::sTitle = NULL;
 
     TODO: center the window or pass FULLSCREEN parameter to SDL_CreateWindow
 */
+//using namespace std;
 void mainWindow::init() {
     SDL_Init (SDL_INIT_EVERYTHING);
 
@@ -21,7 +23,7 @@ void mainWindow::init() {
         fprintf(stderr, "SDL failed to initialize! SDL_GetError: %s\n", SDL_GetError());
     }
     else {
-        gWindow = SDL_CreateWindow("Slinx 0.0.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN); 
+        gWindow = SDL_CreateWindow("Slinx 0.0.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
         if (gWindow == NULL) {
             fprintf(stderr, "Window could not be created! SDL_GetError: %s\n", SDL_GetError());
         }
@@ -30,15 +32,15 @@ void mainWindow::init() {
             SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN);
             // Now, this literally gets us the window surface so that we can modify it. We'll later return it back to the window in order to display it.
             gScreenSurface = SDL_GetWindowSurface(gWindow);
-        }		
+        }
     }
 
 }
 
-/** 
+/**
     void mainWindow::loadGUI()
 
-    Loads the menu labels and the background animation.  
+    Loads the menu labels and the background animation.
 */
 void mainWindow::loadGUI() {
 
@@ -62,7 +64,7 @@ void mainWindow::loadGUI() {
 
     if (sTitle == NULL) {
         fprintf(stderr, "TTF_RenderText_Solid(): Failed to render TTF text. TTF_GetError(): %s", TTF_GetError());
-    } 
+    }
 }
 
 /**
@@ -84,7 +86,7 @@ void mainWindow::close() {
 /**
     constructor mainWindow::mainWindow()
 
-    Calls the member functions of mainWindow and ensures the gScreenSurface we 
+    Calls the member functions of mainWindow and ensures the gScreenSurface we
     got through SDL_GetWindowSurface gets back to the window updated.
 */
 mainWindow::mainWindow(){
@@ -92,14 +94,14 @@ mainWindow::mainWindow(){
     loadGUI();
     if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
         fprintf(stderr, "SDL_BlitSurface(): Failed to apply background. SDL_GetError(): %s", SDL_GetError());
-    } 
+    }
     if (SDL_BlitSurface(sTitle, NULL, gScreenSurface, NULL) != 0) {
         fprintf(stderr, "SDL_BlitSurface(): Failed to apply title. SDL_GetError(): %s", SDL_GetError());
     }
     SDL_UpdateWindowSurface(gWindow);
-    SDL_Delay(10000);    
+    SDL_Delay(10000);
 
-    close();  
+    close();
 }
 
 mainWindow::~mainWindow() {}
