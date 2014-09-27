@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 	#define MAINWINDOW_H
 
-	#include "SDL/SDL.h"
+	#include "SDL2/SDL.h"
 	class mainWindow {
 		public:
 			mainWindow();

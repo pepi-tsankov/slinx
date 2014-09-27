@@ -14,11 +14,11 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc" />
-					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc/sdl" />
+					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc/sdl2" />
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf" />
-					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc/sdl/lib" />
+					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc/sdl2/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
