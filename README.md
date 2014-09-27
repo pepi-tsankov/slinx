@@ -68,7 +68,7 @@ Later on, when the project develops, it is highly likely that this method will b
 
 ### For Windows development
 
-# Add compiler directories:
+#### Add compiler directories:
 
   /slinx/inc
   
@@ -78,7 +78,7 @@ Linker directory:
 
   /slinx/inc/sdl2/lib
   
-# You need the 32bit libraries:
+#### You need the 32bit libraries:
 
 libfreetype-6.dll
 
