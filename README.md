@@ -32,8 +32,8 @@ Once this is done you are ready to check it out by yourself.
 Compiling the game
 ------------------
 
-### Dependencies: SDL_TTF
-#### SDL_TTF Installation
+#### Dependencies: SDL_TTF
+##### SDL_TTF Installation
 
 ```
 hg clone https://hg.libsdl.org/SDL_ttf/
@@ -64,7 +64,4 @@ make sure the dynamic linkers finds the library. A quick workaround is to simply
 
 this should fix the issue. For further info about what ldconfig does, ```man ldconfig```.
 
-Later on, when the project develops, it is highly likely that this method will be replaced by a ```Makefile``` or similar approach.
-
-
-
+Later on, when the project develops, it is highly likely that this method will be replaced by a ```Makefile```, ```CMake``` or by similar approach.
