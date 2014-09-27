@@ -32,19 +32,19 @@ Once this is done you are ready to check it out by yourself.
 Compiling the game
 ------------------
 
-I. Dependencies: SDL_TTF
-	1. SDL_TTF Installation
+### Dependencies: SDL_TTF
+#### SDL_TTF Installation
 
-	```
-	hg clone https://hg.libsdl.org/SDL_ttf/
-	cd SDL_TTF
-	./autogen.sh
-	./configure
-	make
-	make install
-	```
+```
+hg clone https://hg.libsdl.org/SDL_ttf/
+cd SDL_TTF
+./autogen.sh
+./configure
+make
+make install
+```
 
-II. Building it
+### Building it
 
 At this stage of the project, the compilation is rather simple.
 
