@@ -67,17 +67,25 @@ this should fix the issue. For further info about what ldconfig does, ```man ldc
 Later on, when the project develops, it is highly likely that this method will be replaced by a ```Makefile```, ```CMake``` or by similar approach.
 
 ### For Windows development
+
 Add compiler directories:
+
   /slinx/inc
+  
   /slinx/inc/sdl2
+  
 Linker directory:
+
   /slinx/inc/sdl2/lib
   
 You need the 32bit libraries:
 
 libfreetype-6.dll
+
 SDL2_ttf.dll
+
 zlib.dll
+
 SDL2.dll
 
 These are 32bit libraries. They are to be added in System32 for 32bit computers and SysWow64 for 64bit ones.
