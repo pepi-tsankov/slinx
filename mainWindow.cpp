@@ -1,85 +1,105 @@
 #include "inc/mainWindow.h"
+#include "SDL2/SDL_ttf.h"
 #include <iostream>
 
-//The window we'll be rendering to
 SDL_Window* mainWindow::gWindow = NULL;
-    
-//The surface contained by the window
 SDL_Surface* mainWindow::gScreenSurface = NULL;
-
-//The image we will load and show on the screen
 SDL_Surface* mainWindow::gBackground = NULL;
+SDL_Surface* mainWindow::sTitle = NULL;
 
-bool mainWindow::init() 
-{
+/**
+    void mainWindow::init()
+
+    Initializes SDL and thus the main window that contains the main game menu.
+
+    TODO: center the window or pass FULLSCREEN parameter to SDL_CreateWindow
+*/
+void mainWindow::init() {
     SDL_Init (SDL_INIT_EVERYTHING);
-    bool success = true;
 
-    // SDL_Init should return a non-zero value if there's an error, so handle it
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        printf("SDL failed to initialize! Error: %s\n", SDL_GetError());
-        success = false;
+        fprintf(stderr, "SDL failed to initialize! SDL_GetError: %s\n", SDL_GetError());
     }
     else {
-        // TODO: Center the window or/and make it fullscreen
-        gWindow = SDL_CreateWindow("Slinx 0.0.1", 10, 10, 640, 480, true); 
-        if (gWindow == NULL)
-        {
-            printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-            success = false;
+        gWindow = SDL_CreateWindow("Slinx 0.0.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN); 
+        if (gWindow == NULL) {
+            fprintf(stderr, "Window could not be created! SDL_GetError: %s\n", SDL_GetError());
         }
-        else
-        {
-            //Get window surface
+        else {
+            // Make fullscreen
+            SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN);
+            // Now, this literally gets us the window surface so that we can modify it. We'll later return it back to the window in order to display it.
             gScreenSurface = SDL_GetWindowSurface(gWindow);
         }		
     }
+
 }
 
-bool mainWindow::loadBackground() 
-{
-    bool success = true;
+/** 
+    void mainWindow::loadGUI()
 
-    gBackground = SDL_LoadBMP("media/bg.bmp");
+    Loads the menu labels and the background animation.  
+*/
+void mainWindow::loadGUI() {
+
+    gBackground = SDL_LoadBMP("inc/media/images/bg.bmp");
     if (gBackground == NULL) {
-        printf("Unable to load image! SDL Error: %s\n", SDL_GetError());
-        success = false;
+        fprintf(stderr, "SDL_LoadBMP(): Unable to load image! SDL_GetError: %s\n", SDL_GetError());
     }
-    return success;
+
+    if (TTF_Init() != 0) {
+        fprintf(stderr, "TTF_Init(): Failed to initialize the SDL TTF library. TTF_GetError(): %s", TTF_GetError());
+    }
+
+    TTF_Font *font;
+    font = TTF_OpenFont("inc/media/fonts/Ubuntu-Title/Ubuntu-Title.ttf", 50);
+    if (font == NULL) {
+        fprintf(stderr, "TTF_OpenFont(): Failed to load main label fonts. TTF_GetError():  %s",  TTF_GetError());
+    }
+
+    SDL_Color text_color = {0, 0, 0};
+    sTitle = TTF_RenderText_Solid(font, "Slinx", text_color);
+
+    if (sTitle == NULL) {
+        fprintf(stderr, "TTF_RenderText_Solid(): Failed to render TTF text. TTF_GetError(): %s", TTF_GetError());
+    } 
 }
 
-void mainWindow::close() 
-{
+/**
+    void mainWindow::close()
+
+    Frees the used resources and closes SDL.
+*/
+void mainWindow::close() {
 	SDL_FreeSurface(gBackground);
 	gBackground = NULL;
 
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 
+    TTF_Quit();
 	SDL_Quit();
 }
 
-mainWindow::mainWindow()
-{
-    // Now we're going to call all of the previously defined functions. Notice that we're also checking their return value.
-    if (!init()) {
-		printf("init(): Failed to initialize!\n");
-    }
-    else 
-    {
-        if (!loadBackground()) 
-        {
-			printf("loadBackground(): Failed to background image!\n");
-        }
-        else 
-        {
-            // SDL_BlitSurface applies the image to the surface we previously created.
-            SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL );
-            // This is to ensure we actually see the window. Mind you, the value passed is in to SDL_Delay should be in milliseconds.
-            SDL_Delay(2000);
-        }
-    }
+/**
+    constructor mainWindow::mainWindow()
 
-    // Free the resources and close SDL using the previously defined close() function.
+    Calls the member functions of mainWindow and ensures the gScreenSurface we 
+    got through SDL_GetWindowSurface gets back to the window updated.
+*/
+mainWindow::mainWindow(){
+    init();
+    loadGUI();
+    if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
+        fprintf(stderr, "SDL_BlitSurface(): Failed to apply background. SDL_GetError(): %s", SDL_GetError());
+    } 
+    if (SDL_BlitSurface(sTitle, NULL, gScreenSurface, NULL) != 0) {
+        fprintf(stderr, "SDL_BlitSurface(): Failed to apply title. SDL_GetError(): %s", SDL_GetError());
+    }
+    SDL_UpdateWindowSurface(gWindow);
+    SDL_Delay(10000);    
+
     close();  
 }
+
+mainWindow::~mainWindow() {}

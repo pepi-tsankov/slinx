@@ -21,6 +21,7 @@ Secondly, you have to clone it:
 Finally, in order to build it from the source type the following commands:
 
 ```
+cd SDL
 ./configure
 make
 make install
@@ -31,12 +32,26 @@ Once this is done you are ready to check it out by yourself.
 Compiling the game
 ------------------
 
+I. Dependencies: SDL_TTF
+	1. SDL_TTF Installation
+
+	```
+	hg clone https://hg.libsdl.org/SDL_ttf/
+	cd SDL_TTF
+	./autogen.sh
+	./configure
+	make
+	make install
+	```
+
+II. Building it
+
 At this stage of the project, the compilation is rather simple.
 
 Once you've acquired the SDL library:
 
 ```
-g++ main.cpp mainWindow.cpp -o slinx -lSDL2
+g++ main.cpp mainWindow.cpp -o slinx -lSDL2 -lSDL2_ttf
 ```
 
 If you're presented with an error such as
