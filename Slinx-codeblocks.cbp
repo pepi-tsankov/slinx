@@ -15,6 +15,9 @@
 					<Add option="-g" />
 					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc" />
 					<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc/sdl2" />
+					<Add directory="include" />
+					<Add directory="inc" />
+					<Add directory="inc/interfaces" />
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf" />
@@ -28,6 +31,9 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
+					<Add directory="inc" />
+					<Add directory="inc/interfaces" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -43,10 +49,16 @@
 			<Add option="-lmingw32 -lSDL2main -lSDL2" />
 			<Add directory="C:/Users/Laptop/Documents/Slinx-codeblocks/inc/sdl/lib" />
 		</Linker>
+		<Unit filename="Animal.cpp" />
 		<Unit filename="Entity.cpp" />
+		<Unit filename="IDie.cpp" />
+		<Unit filename="IMoveable.cpp" />
 		<Unit filename="Tree.cpp" />
+		<Unit filename="inc/Animal.h" />
 		<Unit filename="inc/Entity.h" />
 		<Unit filename="inc/Tree.h" />
+		<Unit filename="inc/interfaces/IDie.h" />
+		<Unit filename="inc/interfaces/IMoveable.h" />
 		<Unit filename="inc/mainWindow.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mainWindow.cpp" />
