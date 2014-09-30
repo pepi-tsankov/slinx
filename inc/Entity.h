@@ -7,13 +7,20 @@ public:
 	Entity();
 	Entity(int coordX, int coordY, int sizeX, int sizeY, int sizeZ);
 	~Entity();
-	
+
 	//fields
 	virtual int CoordX();
 	virtual int CoordY();
 	virtual int SizeX();
 	virtual int SizeY();
 	virtual int SizeZ();
+	/*Here are the member functions that are not here. */
+	/*virtual int ASD();
+	virtual int setCoordX();
+	virtual int setCoordY();
+	virtual int setSizeX();
+	virtual int setSizeY();
+	virtual int setSizeZ();*/
 	//methods
 	/*
 	 * void drawSelf(appearance)

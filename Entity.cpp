@@ -25,15 +25,41 @@ int Entity::CoordY()
 }
 int Entity::SizeX()
 {
-	return sizeX;
+	return this->sizeX;
 }
 int Entity::SizeY()
 {
-	return sizeY;
+	return this->sizeY;
 }
 int Entity::SizeZ()
 {
-	return sizeZ;
+	return this->sizeZ;
 }
+/* WHAT THE FUCK!? */
+/*Error: no such member function found in Entity.h
+/*int Entity::ASD()
+{
+
+}
+int Entity::setCoordX()
+{
+	this.coordX = value;
+}
+int Entity::setCoordY()
+{
+	this.coordY = value;
+}
+int Entity::setSizeX()
+{
+	this.sizeX = value;
+}
+int Entity::setSizeY()
+{
+	this.sizeY = value;
+}
+int Entity::setSizeZ()
+{
+	this.sizeZ = value;
+}*/
 
 

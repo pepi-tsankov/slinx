@@ -10,7 +10,18 @@ Animal::~Animal()
 }
 void Animal::Move()
 {
-
+    /*switch(this.direction)
+    {
+        case "straight":
+            if(this.cameraAngle == 0)
+            {
+                this.CoordX() += this.speed;
+            }
+            else
+            {
+                this.CoordY() += this.speed;
+            }
+    }*/
 }
 void Animal::Die()
 {

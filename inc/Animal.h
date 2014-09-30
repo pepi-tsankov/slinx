@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "IMoveable.h"
 #include "IDie.h"
+#include <string>
 
 class Animal : public Entity, public IMoveable
 {
@@ -14,7 +15,10 @@ class Animal : public Entity, public IMoveable
         void Die();
     protected:
     private:
-        int speed = 1; // the speed of the thing measured by sth, idk
+        float speed = 1; // the speed of the thing measured by sth, idk
+        std::string turn = "straight";
+        float cameraAngle = 0;
+        int direction = 2;
 };
 
 #endif // ANIMAL_H
