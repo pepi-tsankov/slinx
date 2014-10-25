@@ -96,7 +96,9 @@ mainWindow::mainWindow(){
 	SDL_Event e;
 
     init();
+	printf("Init - DONE.");
     loadGUI();
+	printf("Load GUI - DONE.");
 	//While application is running
 	while (!quit)
 	{
@@ -108,6 +110,13 @@ mainWindow::mainWindow(){
 			{
 				quit = true;
 			}
+			if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym = SDLK_0)
+				{
+					// start obj loader
+				}
+			}
 		}
 		if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
 			fprintf(stderr, "SDL_BlitSurface(): Failed to apply background. SDL_GetError(): %s", SDL_GetError());
@@ -117,9 +126,11 @@ mainWindow::mainWindow(){
 		}
 		SDL_UpdateWindowSurface(gWindow);
 	}
-    SDL_Delay(10000);
-
-    close();
+	if (quit)
+	{
+		close();
+	}
+    
 }
 
 mainWindow::~mainWindow() {}
