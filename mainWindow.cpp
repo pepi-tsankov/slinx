@@ -90,15 +90,33 @@ void mainWindow::close() {
     got through SDL_GetWindowSurface gets back to the window updated.
 */
 mainWindow::mainWindow(){
+	//Main loop flag
+	bool quit = false;
+	//Event handler
+	SDL_Event e;
+
     init();
     loadGUI();
-    if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
-        fprintf(stderr, "SDL_BlitSurface(): Failed to apply background. SDL_GetError(): %s", SDL_GetError());
-    }
-    if (SDL_BlitSurface(sTitle, NULL, gScreenSurface, NULL) != 0) {
-        fprintf(stderr, "SDL_BlitSurface(): Failed to apply title. SDL_GetError(): %s", SDL_GetError());
-    }
-    SDL_UpdateWindowSurface(gWindow);
+	//While application is running
+	while (!quit)
+	{
+		while (SDL_PollEvent(&e) != 0)
+		{
+			//User requests quit
+			if ((e.type == SDL_QUIT) ||
+				((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)))
+			{
+				quit = true;
+			}
+		}
+		if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
+			fprintf(stderr, "SDL_BlitSurface(): Failed to apply background. SDL_GetError(): %s", SDL_GetError());
+		}
+		if (SDL_BlitSurface(sTitle, NULL, gScreenSurface, NULL) != 0) {
+			fprintf(stderr, "SDL_BlitSurface(): Failed to apply title. SDL_GetError(): %s", SDL_GetError());
+		}
+		SDL_UpdateWindowSurface(gWindow);
+	}
     SDL_Delay(10000);
 
     close();
