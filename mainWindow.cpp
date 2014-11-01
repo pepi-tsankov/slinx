@@ -2,11 +2,42 @@
 #include "SDL_ttf.h"
 #include <iostream>
 #include <stdio.h>
+#include <GL\glew.h>
+#include <SDL_opengl.h>
+//#include <GL\GLU.h>
 
 SDL_Window* mainWindow::gWindow = NULL;
 SDL_Surface* mainWindow::gScreenSurface = NULL;
 SDL_Surface* mainWindow::gBackground = NULL;
 SDL_Surface* mainWindow::sTitle = NULL;
+
+SDL_Window *mainwindow; /* Our window handle */
+SDL_GLContext maincontext; /* Our opengl context handle */
+
+/* A simple function that prints a message, the error code returned by SDL,
+* and quits the application */
+void sdldie(const char *msg)
+{
+	printf("%s: %s\n", msg, SDL_GetError());
+	SDL_Quit();
+	exit(1);
+}
+
+
+void checkSDLError(int line = -1)
+{
+#ifndef NDEBUG
+	const char *error = SDL_GetError();
+	if (*error != '\0')
+	{
+		printf("SDL Error: %s\n", error);
+		if (line != -1)
+			printf(" + line: %i\n", line);
+		SDL_ClearError();
+	}
+#endif
+}
+
 
 /**
     void mainWindow::init()
@@ -17,24 +48,20 @@ SDL_Surface* mainWindow::sTitle = NULL;
 */
 //using namespace std;
 void mainWindow::init() {
-    SDL_Init (SDL_INIT_EVERYTHING);
+	
 
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        fprintf(stderr, "SDL failed to initialize! SDL_GetError: %s\n", SDL_GetError());
-    }
-    else {
-        gWindow = SDL_CreateWindow("Slinx 0.0.1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
-        if (gWindow == NULL) {
-            fprintf(stderr, "Window could not be created! SDL_GetError: %s\n", SDL_GetError());
-        }
-        else {
-            // Make fullscreen
-            SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN);
-            // Now, this literally gets us the window surface so that we can modify it. We'll later return it back to the window in order to display it.
-            gScreenSurface = SDL_GetWindowSurface(gWindow);
-        }
-    }
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) /* Initialize SDL's Video subsystem */
+		sdldie("Unable to initialize SDL"); /* Or die on error */
 
+	/*tell SDL that you want a forward compatible OpenGL 3.2 context*/
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+
+
+	/* Create our window centered at 512x512 resolution */
+	mainwindow = SDL_CreateWindow("SLINX", 100, 100, 800, 600, SDL_WINDOW_OPENGL);
+	SDL_GLContext context = SDL_GL_CreateContext(mainwindow);
 }
 
 /**
@@ -42,7 +69,7 @@ void mainWindow::init() {
 
     Loads the menu labels and the background animation.
 */
-void mainWindow::loadGUI() {
+/*void mainWindow::loadGUI() {
 
     gBackground = SDL_LoadBMP("inc/media/images/bg.bmp");
     if (gBackground == NULL) {
@@ -65,7 +92,7 @@ void mainWindow::loadGUI() {
     if (sTitle == NULL) {
         fprintf(stderr, "TTF_RenderText_Solid(): Failed to render TTF text. TTF_GetError(): %s", TTF_GetError());
     }
-}
+}*/
 
 /**
     void mainWindow::close()
@@ -97,7 +124,7 @@ mainWindow::mainWindow(){
 
     init();
 	printf("Init - DONE.");
-    loadGUI();
+    //loadGUI();
 	printf("Load GUI - DONE.");
 	//While application is running
 	while (!quit)
@@ -118,13 +145,14 @@ mainWindow::mainWindow(){
 				}
 			}
 		}
-		if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
+		/*if (SDL_BlitSurface(gBackground, NULL, gScreenSurface, NULL) != 0) {
 			fprintf(stderr, "SDL_BlitSurface(): Failed to apply background. SDL_GetError(): %s", SDL_GetError());
 		}
 		if (SDL_BlitSurface(sTitle, NULL, gScreenSurface, NULL) != 0) {
 			fprintf(stderr, "SDL_BlitSurface(): Failed to apply title. SDL_GetError(): %s", SDL_GetError());
 		}
-		SDL_UpdateWindowSurface(gWindow);
+		SDL_UpdateWindowSurface(gWindow);*/
+		SDL_GL_SwapWindow(mainwindow);
 	}
 	if (quit)
 	{

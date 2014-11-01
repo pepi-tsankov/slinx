@@ -8,7 +8,7 @@
 			~mainWindow();
 		private:
 			void init();
-			void loadGUI();
+			//void loadGUI();
 			void close();
 			static SDL_Window* gWindow;
 			static SDL_Surface* gScreenSurface;
