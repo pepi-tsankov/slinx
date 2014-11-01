@@ -69,23 +69,17 @@ Later on, when the project develops, it is highly likely that this method will b
 ### For Windows development
 
 #### Add compiler directories:
-
-  /slinx/inc
-  
-  /slinx/inc/sdl2
+  /slinx/inc; /slinx/inc/sdl2
   
 Linker directory:
-
-  /slinx/inc/sdl2/lib
+/slinx/libs
   
 #### You need the 32bit libraries:
 
-libfreetype-6.dll
+libfreetype-6.dll, SDL2_ttf.dll, zlib.dll, SDL2.dll, glew32.dll
 
-SDL2_ttf.dll
+The game uses the 32bit libraries, but nevertheless they should be put in System32 on 32bit machines and SysWow64 in 64bit ones.
 
-zlib.dll
+###Dependencies:
 
-SDL2.dll
-
-These are 32bit libraries. They are to be added in System32 for 32bit computers and SysWow64 for 64bit ones.
+glew32.lib, opengl32.lib, sdl2.lib, SDL2.lib, SDL2main.lib
